@@ -1,0 +1,52 @@
+
+<mat-dialog-content>
+    <h1 mat-dialog-title>Registration Form</h1>
+    <form [formGroup]="signupForm">
+        <div fxFlex fxLayout="column">
+
+            <mat-form-field appearance="fill">
+                <mat-label>Name</mat-label>
+                <input matInput formControlName="name" required>
+                <mat-error *ngIf="signupForm.controls.name.touched && signupForm.controls.name.invalid">
+                    <span *ngIf="signupForm.controls.name.errors.required">this field is mandatory</span>
+                    <span *ngIf="signupForm.controls.name.errors.pattern">this field is invalid</span>
+                </mat-error>
+            </mat-form-field>
+
+
+            <mat-form-field appearance="fill">
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="email" required>
+                <mat-error *ngIf="signupForm.controls.email.touched && signupForm.controls.email.invalid">
+                    <span *ngIf="signupForm.controls.email.errors.required">this field is mandatory</span>
+                    <span *ngIf="signupForm.controls.email.errors.pattern">this field is invalid</span>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Contact Number</mat-label>
+                <input matInput formControlName="contactNumber" required>
+                <mat-error *ngIf="signupForm.controls.contactNumber.touched && signupForm.controls.contactNumber.invalid">
+                    <span *ngIf="signupForm.controls.contactNumber.errors.required">this field is mandatory</span>
+                    <span *ngIf="signupForm.controls.contactNumber.errors.pattern">this field is invalid</span>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Password</mat-label>
+                <input matInput type="password" formControlName="password" required>
+                <mat-error *ngIf="signupForm.controls.password.touched && signupForm.controls.password.invalid">
+                    <span *ngIf="signupForm.controls.password.errors.required">this field is mandatory</span>
+                    <span *ngIf="signupForm.controls.password.errors.pattern">this field is invalid</span>
+                </mat-error>
+            </mat-form-field>
+
+            
+        </div>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-raised-button color="primary" type="submit" (click)="onSignup()"
+    [disabled]="!(signupForm.valid && signupForm.dirty)">SignUp</button>
+    <button mat-raised-button color="primary" mat-dialog-close>Close</button>
+</mat-dialog-actions>

@@ -1,0 +1,31 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.green-snackbar{
+    background-color: greenyellow;
+    
+}
+.black-snackbar{
+    background-color:brown;
+}
+
+.grid-container {
+    margin: 20px;
+  }
+  
+  .dashboard-card {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    right: 15px;
+    bottom: 15px;
+    min-height: fit-content;
+  }
+  
+  .dashboard-card-content {
+    text-align: center;
+  }
+  .example-spacer {
+    flex: 1 1 auto;
+  }  

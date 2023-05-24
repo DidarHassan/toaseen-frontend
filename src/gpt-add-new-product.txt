@@ -1,0 +1,110 @@
+//ADD NEW PRODUCT
+<mat-card>
+  <mat-card-title>Add New Product</mat-card-title>
+  <mat-card-content>
+    <form #newProductForm="ngForm" (ngSubmit)="onSubmit(newProductForm)">
+      <mat-form-field>
+        <input matInput placeholder="Product Name" name="name" ngModel required>
+      </mat-form-field>
+      <mat-form-field>
+        <textarea matInput placeholder="Product Description" name="description" ngModel required></textarea>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput type="number" placeholder="Product Price" name="price" ngModel required>
+      </mat-form-field>
+      <button mat-raised-button color="primary" type="submit" [disabled]="newProductForm.invalid">Add Product</button>
+    </form>
+  </mat-card-content>
+</mat-card>
+
+
+//TS
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ProductService } from './product.service';
+
+@Component({
+  selector: 'app-add-product',
+  templateUrl: './add-product.component.html',
+  styleUrls: ['./add-product.component.css']
+})
+export class AddProductComponent {
+
+  productForm: FormGroup;
+
+  constructor(private formBuilder: FormBuilder, private productService: ProductService, private router: Router) {
+    this.createForm();
+  }
+
+  createForm() {
+    this.productForm = this.formBuilder.group({
+      name: ['', Validators.required],
+      description: ['', Validators.required],
+      price: ['', Validators.required]
+    });
+  }
+
+  onSubmit(form: FormGroup) {
+    this.productService.addProduct(form.value).subscribe(
+      () => {
+        this.router.navigate(['/products']);
+      },
+      error => console.log(error)
+    );
+  }
+
+}
+
+//SERVICE
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ProductService {
+
+  private apiUrl = 'http://localhost:3000/products';
+
+  constructor(private http: HttpClient) { }
+
+  addProduct(product: any): Observable<any> {
+    return this.http.post<any>(this.apiUrl, product);
+  }
+
+}
+
+
+//APP.MODIUL
+
+import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    AddProductComponent,
+    ProductListComponent
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,  
+    MatButtonModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }

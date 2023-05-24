@@ -1,0 +1,120 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
+    <mat-toolbar><img src="https://res.cloudinary.com/drippyi9f/image/upload/v1682412877/cover_nakled.png" class="logo"
+        alt="Logo"></mat-toolbar>
+    <span class="example-spacer"></span>
+    <mat-nav-list>
+      <!-- dashboard -->
+    
+        <a mat-list-item [routerLinkActive]="['active']" [routerLink]="['./dashboard']"><mat-icon class="nav-icon" role="img">dashboard</mat-icon>Dashboard</a>
+
+      <!-- Apps -->
+      <mat-expansion-panel disabled>
+        <mat-expansion-panel-header>
+          <mat-panel-title>Apps</mat-panel-title>
+        </mat-expansion-panel-header>
+      </mat-expansion-panel>
+
+      <!--Dropdown-item -->
+      <mat-accordion class="example-headers-align">
+        <mat-expansion-panel class="panel-01">
+          <mat-expansion-panel-header>
+            <mat-panel-title><mat-icon class="nav-icon">desktop_windows</mat-icon>POS</mat-panel-title>
+          </mat-expansion-panel-header>
+          <a class="dropdown-item" mat-list-item [routerLink]="['./processSale']" [routerLinkActive]="['active']">Process Sale</a>
+          <a class="dropdown-item" mat-list-item [routerLink]="['*']">Sales History</a>
+          <a class="dropdown-item" mat-list-item [routerLink]="['*']">Register
+            Closures</a>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title><mat-icon class="nav-icon">style</mat-icon>Products</mat-panel-title>
+          </mat-expansion-panel-header>
+          <a class="dropdown-item" mat-list-item [routerLink]="['*']">All Products</a>
+          <a class="dropdown-item" mat-list-item [routerLink]="['*']">Add New Product</a>
+          <a class="dropdown-item" mat-list-item [routerLink]="['*']">All Product
+            Brands</a>
+          <a class="dropdown-item" mat-list-item [routerLink]="['*']">All Product
+            Categories</a>
+          <a class="dropdown-item" mat-list-item [routerLink]="['*']">Products
+            Inventory</a>
+          <a class="dropdown-item" mat-list-item [routerLink]="['*']">Bulk Update
+            Products</a>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title><mat-icon class="nav-icon">color_lens</mat-icon>Inventory</mat-panel-title>
+          </mat-expansion-panel-header>
+          <a class="dropdown-item" mat-list-item [routerLink]="['*']">Purchase Orders</a>
+          <a class="dropdown-item" mat-list-item [routerLink]="['*']">Inventory
+            Transfers</a>
+          <a class="dropdown-item" mat-list-item [routerLink]="['*']">Suppliers</a>
+          <a class="dropdown-item" mat-list-item [routerLink]="['*']">Inventory
+            Locations</a>
+          <a class="dropdown-item" mat-list-item [routerLink]="['*']">Bulk Inventory
+            Entry</a>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title><mat-icon class="nav-icon">nature_people</mat-icon>Customers</mat-panel-title>
+          </mat-expansion-panel-header>
+          <a class="dropdown-item" mat-list-item [routerLinkActive]="['active']" [routerLink]="['./allCustomer']">All Custommer</a>
+          <a class="dropdown-item" mat-list-item [routerLinkActive]="['active']" [routerLink]="['./manegeCustomer']">Manage Customer
+            Groups</a>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title><mat-icon class="nav-icon">perm_identity</mat-icon>Profile</mat-panel-title>
+          </mat-expansion-panel-header>
+          <a class="dropdown-item" mat-list-item>Update Profile</a>
+          <a class="dropdown-item" mat-list-item>Change Password</a>
+          <a class="dropdown-item" mat-list-item (click)="singupAction()">Register</a>
+          <a class="dropdown-item" mat-list-item>Log Out</a>
+        </mat-expansion-panel>
+      </mat-accordion>
+      <!--Dropdown-item End-->
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar style="background-color: #7a6fbe; color: #fff;">
+      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      
+      <button class="nav-add-title" mat-button  disabled>Add</button>
+      
+      <button class="nav-add-action" [matMenuTriggerFor]="menu" mat-mini-fab color="primary" aria-label="Example icon button with a menu icon">
+        <mat-icon>add</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <a mat-menu-item [routerLink]="['*']" >Add New Product</a>
+        <a mat-menu-item [routerLink]="['*']" >New Collection</a>
+        <a mat-menu-item [routerLink]="['*']" >New Purchase Order</a>
+        <a mat-menu-item [routerLink]="['*']" >New Sale</a>
+        <a mat-menu-item [routerLink]="['./newCustomer']" >New Customer</a>
+      </mat-menu>
+      <!-- <span><img src="https://res.cloudinary.com/drippyi9f/image/upload/v1682412877/cover_nakled.png" class="logo" alt="Logo"></span> -->
+      <span class="example-spacer content-spacer"></span>
+
+      <div class="nav-content">
+        <button mat-button [matMenuTriggerFor]="menu">
+          <img class="user-face"
+            src="https://www.pngfind.com/pngs/m/655-6552449_ali-a-png-persons-face-png-transparent-png.png" alt="">
+
+          Didar Hasan</button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item>Settings</button>
+          <button mat-menu-item>Log Out</button>
+        </mat-menu>
+      </div>
+    </mat-toolbar>
+    <!-- Add Content Here -->
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

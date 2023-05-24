@@ -1,0 +1,58 @@
+<mat-toolbar>
+    <img class="Logo" src="https://res.cloudinary.com/drippyi9f/image/upload/v1682412877/cover_nakled.png" alt="LOGO">
+    <span class="example-spacer"></span>
+</mat-toolbar>
+
+
+
+<div class="container">
+    <div class="form">
+        <mat-card class="example-card">
+            <mat-card-header>
+                <mat-card-title>Login to Store</mat-card-title>
+            </mat-card-header>
+
+            <mat-card-content>
+                <form [formGroup]="loginForm">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Email</mat-label>
+                        <input matInput formControlName="email" required>
+                        <mat-error *ngIf="loginForm.controls.email.touched && loginForm.controls.email.invalid">
+                            <span *ngIf="loginForm.controls.email.errors.required">this field is mandatory</span>
+                            <span *ngIf="loginForm.controls.email.errors.pattern">this field is invalid</span>
+                        </mat-error>
+                    </mat-form-field>
+
+                    <!-- <mat-form-field appearance="fill">
+                        <mat-label>Password</mat-label>
+                        <input matInput formControlName="password" type="password" required>
+                        <mat-error *ngIf="loginForm.controls.password.touched && loginForm.controls.password.invalid">
+                            <span *ngIf="loginForm.controls.password.errors.required">this field is mandatory</span>
+                            <span *ngIf="loginForm.controls.password.errors.pattern">this field is invalid</span>
+                        </mat-error>
+                    </mat-form-field> -->
+
+                    <mat-form-field appearance="fill">
+                        <mat-label>Enter your password</mat-label>
+                        <input matInput formControlName="password" [type]="hide ? 'password' : 'text'">
+                        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                            
+                          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+
+                          
+                        </button>
+                        <mat-error *ngIf="loginForm.controls.password.touched && loginForm.controls.password.invalid">
+                            <span *ngIf="loginForm.controls.password.errors.required">this field is mandatory</span>
+                            <span *ngIf="loginForm.controls.password.errors.pattern">this field is invalid</span>
+                        </mat-error>
+                      </mat-form-field>
+                </form>
+            </mat-card-content>
+            
+            <mat-card-actions>
+                <button mat-raised-button color="primary" type="submit" (click)="onLogin()"
+                    [disabled]="!(loginForm.valid && loginForm.dirty)">Login</button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</div>

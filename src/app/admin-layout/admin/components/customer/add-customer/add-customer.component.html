@@ -1,0 +1,74 @@
+<div class="grid-container">
+    <h1 class="mat-h1">Add New Customer</h1>
+    <div class="mat-card">
+        <form [formGroup]="addCustomerForm">
+            <div fxFlex fxLayout="column">
+
+                <mat-form-field appearance="outline">
+                    <mat-label>First Name</mat-label>
+                    <input matInput formControlName="firstName" required>
+                    <mat-error
+                        *ngIf="addCustomerForm.controls.firstName.touched && addCustomerForm.controls.firstName.invalid">
+                        <span *ngIf="addCustomerForm.controls.firstName.errors.required">this field is mandatory</span>
+                        <span *ngIf="addCustomerForm.controls.firstName.errors.pattern">this field is invalid</span>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Last Name</mat-label>
+                    <input matInput formControlName="lastName" required>
+                    <mat-error
+                        *ngIf="addCustomerForm.controls.lastName.touched && addCustomerForm.controls.lastName.invalid">
+                        <span *ngIf="addCustomerForm.controls.lastName.errors.required">this field is mandatory</span>
+                        <span *ngIf="addCustomerForm.controls.lastName.errors.pattern">this field is invalid</span>
+                    </mat-error>
+                </mat-form-field>
+
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input matInput formControlName="email" required>
+                    <mat-error *ngIf="addCustomerForm.controls.email.touched && addCustomerForm.controls.email.invalid">
+                        <span *ngIf="addCustomerForm.controls.email.errors.required">this field is mandatory</span>
+                        <span *ngIf="addCustomerForm.controls.email.errors.pattern">this field is invalid</span>
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Gender</mat-label>
+                    <input matInput formControlName="gender" required>
+                    <mat-error
+                        *ngIf="addCustomerForm.controls.gender.touched && addCustomerForm.controls.gender.invalid">
+                        <span *ngIf="addCustomerForm.controls.gender.errors.required">this field is mandatory</span>
+                        <span *ngIf="addCustomerForm.controls.gender.errors.pattern">this field is invalid</span>
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Phone Number</mat-label>
+                    <input matInput formControlName="phoneNumber" required>
+                    <mat-error
+                        *ngIf="addCustomerForm.controls.phoneNumber.touched && addCustomerForm.controls.phoneNumber.invalid">
+                        <span *ngIf="addCustomerForm.controls.phoneNumber.errors.required">this field is
+                            mandatory</span>
+                        <span *ngIf="addCustomerForm.controls.phoneNumber.errors.pattern">this field is invalid</span>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Customer Number</mat-label>
+                    <input matInput formControlName="customerNumber" required>
+                    <mat-error
+                        *ngIf="addCustomerForm.controls.customerNumber.touched && addCustomerForm.controls.customerNumber.invalid">
+                        <span *ngIf="addCustomerForm.controls.customerNumber.errors.required">this field is
+                            mandatory</span>
+                        <span *ngIf="addCustomerForm.controls.customerNumber.errors.pattern">this field is
+                            invalid</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <mat-card-actions align="end">
+                <button mat-raised-button color="primary" type="submit" (click)="newCustomer()"
+                    [disabled]="!(addCustomerForm.valid && addCustomerForm.dirty)">Save customer</button>
+            </mat-card-actions>
+        </form>
+    </div>
+</div>

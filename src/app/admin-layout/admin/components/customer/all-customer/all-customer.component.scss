@@ -1,0 +1,18 @@
+table {
+    width: 100%;
+  }
+
+  .mat-card-actions{
+    display: flex;
+  }
+  .mat-form-field{
+    width: 70%;
+  }
+  ::deep .mat-form-field-wrapper{
+    padding-bottom: 0px!important;
+  }
+
+  .flter{
+    display: flex;
+    justify-content: space-between;
+  }

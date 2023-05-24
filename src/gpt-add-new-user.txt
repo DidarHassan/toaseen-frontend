@@ -1,0 +1,79 @@
+//HTML
+
+<mat-card>
+  <mat-card-title>Add New User</mat-card-title>
+  <mat-card-content>
+    <form [formGroup]="userForm" (submit)="onSubmit()">
+      <mat-form-field>
+        <input matInput placeholder="Name" formControlName="name">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Email" formControlName="email">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput type="password" placeholder="Password" formControlName="password">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select placeholder="Role" formControlName="role">
+          <mat-option value="admin">Admin</mat-option>
+          <mat-option value="user">User</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button mat-raised-button color="primary" type="submit" [disabled]="userForm.invalid">Add User</button>
+    </form>
+  </mat-card-content>
+</mat-card>
+
+//TS 
+
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UserService } from '../user.service';
+
+@Component({
+  selector: 'app-add-user',
+  templateUrl: './add-user.component.html',
+  styleUrls: ['./add-user.component.css']
+})
+export class AddUserComponent implements OnInit {
+  userForm: FormGroup;
+
+  constructor(private fb: FormBuilder, private userService: UserService) { }
+
+  ngOnInit(): void {
+    this.userForm = this.fb.group({
+      name: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required],
+      role: ['user', Validators.required]
+    });
+  }
+
+  onSubmit() {
+    this.userService.addUser(this.userForm.value).subscribe(() => {
+      // Do something after successful user addition
+    }, error => {
+      console.error(error);
+    });
+  }
+}
+
+//SERVICE
+
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { User } from './user';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class UserService {
+  private apiUrl = 'http://localhost:3000/users';
+
+  constructor(private http: HttpClient) { }
+
+  addUser(user: User): Observable<User> {
+    return this.http.post<User>(this.apiUrl, user);
+  }
+}

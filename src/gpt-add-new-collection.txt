@@ -1,0 +1,244 @@
+//HTML 
+<mat-card>
+  <mat-card-title>Add New Collection</mat-card-title>
+  <mat-card-content>
+    <form>
+      <mat-form-field>
+        <input matInput placeholder="Collection Name">
+      </mat-form-field>
+      <mat-form-field>
+        <textarea matInput placeholder="Description"></textarea>
+      </mat-form-field>
+    </form>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button>Add</button>
+  </mat-card-actions>
+</mat-card>
+
+
+
+//TS 
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-add-collection',
+  templateUrl: './add-collection.component.html',
+  styleUrls: ['./add-collection.component.css']
+})
+export class AddCollectionComponent {
+
+  constructor() { }
+
+  addCollection() {
+    // TODO: Add logic for adding new collection to database
+  }
+
+}
+
+
+
+import { Component } from '@angular/core';
+import { CollectionService } from './collection.service';
+
+@Component({
+  selector: 'app-add-collection',
+  templateUrl: './add-collection.component.html',
+  styleUrls: ['./add-collection.component.css']
+})
+export class AddCollectionComponent {
+
+  constructor(private collectionService: CollectionService) { }
+
+  addCollection() {
+    // TODO: Add logic for adding new collection to database
+  }
+
+}
+
+
+//SERVICES
+
+import { Component } from '@angular/core';
+import { CollectionService } from './collection.service';
+
+@Component({
+  selector: 'app-add-collection',
+  templateUrl: './add-collection.component.html',
+  styleUrls: ['./add-collection.component.css']
+})
+export class AddCollectionComponent {
+
+  collectionName: string;
+  description: string;
+
+  constructor(private collectionService: CollectionService) { }
+
+  addCollection() {
+    const newCollection = {
+      name: this.collectionName,
+      description: this.description
+    };
+    this.collectionService.addCollection(newCollection)
+      .subscribe(
+        (response) => console.log(response),
+        (error) => console.log(error)
+      );
+  }
+
+}
+
+
+
+
+
+
+
+
+import { Component, OnInit } from '@angular/core';
+// import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+// import { Router } from '@angular/router';
+// import { SnakbarService } from 'src/app/services/snakbar.service';
+// import { CustomerService } from 'src/app/services/customer.service';
+// import { NgxUiLoaderService } from 'ngx-ui-loader';
+// import { GlobalConstants } from 'src/app/shared/global-constants';
+
+// @Component({
+//   selector: 'app-add-customer',
+//   templateUrl: './add-customer.component.html',
+//   styleUrls: ['./add-customer.component.scss']
+// })
+// export class AddCustomerComponent implements OnInit {
+//   addCustomerForm: any = FormGroup;
+//   responseMessage: any;
+
+
+
+//   constructor(
+//     private formbuilder: FormBuilder,
+//     private customerService: CustomerService,
+//     private snakbarService: SnakbarService,
+//     private ngxService: NgxUiLoaderService) { }
+
+//   ngOnInit(): void {
+
+//     this.addCustomerForm = this.formbuilder.group({
+//       firstName: [null, [Validators.required, Validators.pattern(GlobalConstants.firstNameRegex)]],
+//       lastName: [null, [Validators.required, Validators.pattern(GlobalConstants.firstNameRegex)]],
+//       email: [null, [Validators.required, Validators.pattern(GlobalConstants.emailRegex)]],
+//       password: [null, [Validators.required]],
+//       gender: [null, [Validators.required, Validators.pattern(GlobalConstants.firstNameRegex)]],
+//       phoneNumber: [null, [Validators.required, Validators.pattern(GlobalConstants.phoneNumberRegex)]],
+//       customerNumber: [null, [Validators.required, Validators.pattern(GlobalConstants.customerNumberRegex)]],
+
+//     })
+//   }
+
+
+//   newCustomer() {
+//     this.ngxService.start();
+//     const formData = this.addCustomerForm.value;
+    
+//     const data = {
+//       firstName: formData.firstName,
+//       lastName: formData.lastName,
+//       email: formData.email,
+//       password: formData.password,
+//       gender: formData.gender,
+//       phoneNumber: formData.phoneNumber,
+//       customerNumber: formData.customerNumber,
+      
+//     };
+
+//     this.customerService.addCustomer(data).subscribe(
+//       (response: any) => {
+//         this.ngxService.stop();
+//         this.responseMessage = response?.message;
+//         this.snakbarService.openSnackBar(this.responseMessage, "");
+//       },
+//       (error) => {
+//         this.ngxService.stop();
+//         if (error.error?.message) {
+//           this.responseMessage = error.error?.message;
+//         } else {
+//           this.responseMessage = GlobalConstants.genericError;
+//         }
+//         console.error(error); // Log the error to the console
+//         this.snakbarService.openSnackBar(this.responseMessage, GlobalConstants.error);
+//       }
+//     );
+//   }
+// }
+
+
+<form [formGroup]="addCustomerForm">
+    <div fxFlex fxLayout="column">
+
+        <mat-form-field appearance="fill">
+            <mat-label>First Name</mat-label>
+            <input matInput formControlName="firstName" required>
+            <mat-error *ngIf="addCustomerForm.controls.firstName.touched && addCustomerForm.controls.firstName.invalid">
+                <span *ngIf="addCustomerForm.controls.firstName.errors.required">this field is mandatory</span>
+                <span *ngIf="addCustomerForm.controls.firstName.errors.pattern">this field is invalid</span>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>First Name</mat-label>
+            <input matInput formControlName="lastName" required>
+            <mat-error *ngIf="addCustomerForm.controls.lastName.touched && addCustomerForm.controls.lastName.invalid">
+                <span *ngIf="addCustomerForm.controls.lastName.errors.required">this field is mandatory</span>
+                <span *ngIf="addCustomerForm.controls.lastName.errors.pattern">this field is invalid</span>
+            </mat-error>
+        </mat-form-field>
+
+
+        <mat-form-field appearance="fill">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" required>
+            <mat-error *ngIf="addCustomerForm.controls.email.touched && addCustomerForm.controls.email.invalid">
+                <span *ngIf="addCustomerForm.controls.email.errors.required">this field is mandatory</span>
+                <span *ngIf="addCustomerForm.controls.email.errors.pattern">this field is invalid</span>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Gender</mat-label>
+            <input matInput formControlName="gender" required>
+            <mat-error *ngIf="addCustomerForm.controls.gender.touched && addCustomerForm.controls.gender.invalid">
+                <span *ngIf="addCustomerForm.controls.gender.errors.required">this field is mandatory</span>
+                <span *ngIf="addCustomerForm.controls.gender.errors.pattern">this field is invalid</span>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Password</mat-label>
+            <input matInput formControlName="password" required>
+            <mat-error *ngIf="addCustomerForm.controls.password.touched && addCustomerForm.controls.password.invalid">
+                <span *ngIf="addCustomerForm.controls.password.errors.required">this field is mandatory</span>
+                <span *ngIf="addCustomerForm.controls.password.errors.pattern">this field is invalid</span>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Phone Number</mat-label>
+            <input matInput formControlName="phoneNumber" required>
+            <mat-error *ngIf="addCustomerForm.controls.phoneNumber.touched && addCustomerForm.controls.phoneNumber.invalid">
+                <span *ngIf="addCustomerForm.controls.phoneNumber.errors.required">this field is mandatory</span>
+                <span *ngIf="addCustomerForm.controls.phoneNumber.errors.pattern">this field is invalid</span>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Customer Number</mat-label>
+            <input matInput formControlName="customerNumber" required>
+            <mat-error *ngIf="addCustomerForm.controls.customerNumber.touched && addCustomerForm.controls.customerNumber.invalid">
+                <span *ngIf="addCustomerForm.controls.customerNumber.errors.required">this field is mandatory</span>
+                <span *ngIf="addCustomerForm.controls.customerNumber.errors.pattern">this field is invalid</span>
+            </mat-error>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" type="submit" (click)="newCustomer()"
+    [disabled]="!(addCustomerForm.valid && addCustomerForm.dirty)">Save Customer</button>
+    </div>
+</form>
